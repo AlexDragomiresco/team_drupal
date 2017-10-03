@@ -1,0 +1,91 @@
+/**
+ * @file
+ * Styles are organized using the SMACSS technique. @see http://smacss.com/book/
+ *
+ * When you turn on CSS aggregation at admin/config/development/performance, all
+ * of these @include files will be combined into a single file.
+ */
+
+/* HTML element (SMACSS base) rules */
+@import "normalize.css";
+
+/* Layout rules */
+@import "layouts/responsive.css";
+
+/* Component (SMACSS module) rules */
+@import "components/misc.css";
+/* Optionally, add your own components here. */
+@import "print.css";
+
+/* SMACSS theme rules */
+/* @import "theme-A.css"; */
+/* @import "theme-B.css"; */
+
+
+body {
+    background: #F7F7F7;
+    color: #333;
+    font-size: 16px;
+    line-height: 2;
+    font-family: Helvetica, Verdana, Arial, sans-serif;
+    background-image: url(bgphoto.jpeg);
+    background-size: auto;
+    background-repeat: no-repeat;
+}
+
+.panel-display a, a:link {
+    color:#21B6A8;
+    text-decoration: none;
+}
+
+
+.panel-display a:hover {
+    text-decoration: underline;
+    color:#B6212D;
+}
+
+#block-user-login {
+    background: #ededed;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+}
+
+h2.block__title {
+    text-align: center;
+    color: #36294B;
+}
+h2.pane-title {
+    color: #2F3355;
+    text-align: center;
+}
+
+.panel-pane.pane-custom.pane-1 p {
+    background: #21B6A8;
+    border: 2px solid #7F5417;
+    broder-radius: 10px;
+    test-align: justify;
+}
+
+/*.panel-panel.panel-col-last p, a.username{
+    color: #80A8F3;
+}*/
+
+#navigation #main-menu {
+   background-color: #000;
+}
+
+#navigation #main-menu a{
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #CCC;
+}
+
+#navigation #main-menu a:hover{
+    text-shadow: 1px 1px #A0A0A0;
+    text-transform: uppercase;
+}
+
