@@ -1,46 +1,27 @@
 <?php
-/**
- *  Implement hook_flag_default_flags
- */
 
-function flag_app_flag_default_flags() {
-  $flags = array();
-// Exported flag: "Flag application".
-  $flags['flag_application'] = array(
-    'entity_type' => 'node',
-    'title' => 'Flag application',
-    'global' => '0',
-    'types' =>
-    array(
-    ),
-    'flag_short' => 'Apply',
-    'flag_long' => 'Apply for this lesson',
-    'flag_message' => 'Thank you !',
-    'unflag_short' => 'Unflag this item',
-    'unflag_long' => 'Remove',
-    'unflag_message' => 'Application removed',
-    'unflag_denied_text' => '',
-    'link_type' => 'toggle',
-    'weight' => 0,
-    'show_in_links' =>
-    
-    array(
-      'full' => 'full',
-      'teaser' => 'teaser',
-      'rss' => 0,
-      'search_index' => 0,
-      'search_result' => 0,
-      'token' => 0,
-    ),
-    'show_as_field' => 1,
-    'show_on_form' => 0,
-    'access_author' => '',
-    'show_contextual_link' => 0,
-    'i18n' => 0,
-    'api_version' => 3,
+/**
+ * Implement hook_menu
+ */
+function flag_app_menu() {
+     $items['admin/structure/flags/flag_application'] = array(
+    'title' => 'Flag Application',
+    'description' => 'Work with the application flags',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('flag_app_form'),
+    'access callback' => 'flag_app_permission',
+    'file' => 'flag_app.admin.inc',
   );
-  return $flags;
+  return $items;
 }
+ /**
+  * Implement hooh_permission()
+  */
+
+function flag_app_permission(){
+  return TRUE;
+}
+
 
 /**
  * Implements hooh_flag_flag
@@ -73,3 +54,48 @@ function flag_app_flag_unflag($flag, $entity_id, $account, $flagging) {
   }
 }
 
+
+
+
+/**
+ *  Implement hook_flag_default_flags
+ */
+
+//function flag_app_flag_default_flags() {
+//  $flags = array();
+//// Exported flag: "Flag application".
+//  $flags['flag_application'] = array(
+//    'entity_type' => 'node',
+//    'title' => 'Flag application',
+//    'global' => '0',
+//    'types' =>
+//    array(
+//    ),
+//    'flag_short' => 'Apply',
+//    'flag_long' => 'Apply for this lesson',
+//    'flag_message' => 'Thank you !',
+//    'unflag_short' => 'Unflag this item',
+//    'unflag_long' => 'Remove',
+//    'unflag_message' => 'Application removed',
+//    'unflag_denied_text' => '',
+//    'link_type' => 'toggle',
+//    'weight' => 0,
+//    'show_in_links' =>
+//    
+//    array(
+//      'full' => 'full',
+//      'teaser' => 'teaser',
+//      'rss' => 0,
+//      'search_index' => 0,
+//      'search_result' => 0,
+//      'token' => 0,
+//    ),
+//    'show_as_field' => 1,
+//    'show_on_form' => 0,
+//    'access_author' => '',
+//    'show_contextual_link' => 0,
+//    'i18n' => 0,
+//    'api_version' => 3,
+//  );
+//  return $flags;
+//}
