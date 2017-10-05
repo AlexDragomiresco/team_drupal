@@ -27,11 +27,7 @@ function flag_app_permission(){
  * Implements hooh_flag_flag
  */
 function flag_app_flag_flag($flag, $entity_id, $account, $flagging) {
-    dsm($flag);
-    dsm($entity_id);
-    dsm($account);
-    dsm($flagging);
-   if ($flag->name == 'flag_application') {
+    if ($flag->name == 'flag_application') {
      $nid = db_insert('flag_app')
         ->fields(array('flagging_id', 'status'))
         ->values(array(
