@@ -105,5 +105,11 @@ function flag_app_admin($action, $values){
           ->fields(array('status' => $action))
           ->condition('flagging_id', $value['flagging_id'])
           ->execute();
+      watchdog('flag_app', t("!name application for the !node was !status", 
+          array('!name' => $value['name'], 
+                '!node' => $value['title'], 
+                '!status' => $status)
+          )
+          );
     }
 }
