@@ -9,17 +9,23 @@ function flag_app_menu() {
     'description' => 'Work with the application flags',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('flag_app_form'),
-    'access callback' => 'flag_app_permission',
+//    'access callback' => 'flag_app_permission',
+    'access arguments'=> array('administer flag applications'),   
     'file' => 'flag_app.admin.inc',
   );
   return $items;
 }
  /**
-  * Implement hooh_permission()
+  * Implement hook_permission()
   */
 
 function flag_app_permission(){
-  return TRUE;
+  return array(
+    'administer flag app' => array(
+      'title'=> t('Manage flag applications'),
+      'description'=> t('Accept or reject applications'),
+    ),
+  );
 }
 
 
