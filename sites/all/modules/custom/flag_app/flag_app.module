@@ -55,49 +55,110 @@ function flag_app_flag_unflag($flag, $entity_id, $account, $flagging) {
         ->execute();
   }
 }
+/**
+ * Implements hook_form_FORM_ID_alter
+ * @param type $form
+ * @param type $form_state
+ */
+
+function flag_app_form_flag_form_alter(&$form, &$form_state) {
+  if($form['#flag_name'] == 'flag_application'){
+    $form['flag_application'] = array(
+      '#type'=> 'fieldset',
+      '#title'=> 'Flag Application settings',
+      '#collapsible'=> TRUE,
+      'flag_application_approve_action' => array(
+        '#type'=> 'checkbox',
+        '#title'=> 'Disable Link',
+        '#default-value'=> $form['#flag']-> flag_application_approve_action,
+        '#description'=> 'Disable link for the other users when application is approved',
+      ),
+      'flag_application_maintain_message'=> array(
+        '#type'=> 'textfield',
+        '#title'=> 'Maintained message',
+        '#default-value'=> $form['#flag']-> flag_application_maintain_message,
+        '#description'=> 'Display if the node has an application approved for it and the link is disabled',
+      )
+    );
+  }
+}  
+  
+/**
+ * Implements hook_flag_options_alter
+ * @param type $options
+ * @param type $flag
+ */
 
 
+function flag_app_flag_options_alter(&$options, $flag) {
+    if($flag->name == 'flag_application'){
+      $options['flag_application_approve_action'] = 0;
+      $options['flag_application_maintain_message'] = '';
+    }
+}
 
+//function flag_app_preprocess_flag(&$vars) {
+//     if($vars['flag']->name == 'flag_application' && $vars['flag']->flag_application_approve_action == 1 && flag_app_application_approved($vars['entity_id']))
+//       {
+//          $vars['link_href'] = '';
+//          $vars['link_text'] = check_plain($vars['flag']->flag_application_maintain_message);
+//       }
+//}
+/**
+ * 
+ * @param type $entity_id we are checking
+ * @return bool if the application has been approved
+ */
+//
+//function flag_app_application_approved($entity_id) {
+//    $query = "SELECT fa.status FROM {flag_app} fa LEFT JOIN {flagging} f ON fa.flagging_id = f.flagging_id WHERE f.entity_id = $entity_id";
+//    $conditions = array(':eid' => $entity_id, ':status'=> 1);
+//    if(db_query($query, $conditions)->fetchField()) {
+//      return TRUE;
+//    } else{
+//      return FALSE;
+//    }
+//}
 
 /**
  *  Implement hook_flag_default_flags
  */
 
-//function flag_app_flag_default_flags() {
-//  $flags = array();
-//// Exported flag: "Flag application".
-//  $flags['flag_application'] = array(
-//    'entity_type' => 'node',
-//    'title' => 'Flag application',
-//    'global' => '0',
-//    'types' =>
-//    array(
-//    ),
-//    'flag_short' => 'Apply',
-//    'flag_long' => 'Apply for this lesson',
-//    'flag_message' => 'Thank you !',
-//    'unflag_short' => 'Unflag this item',
-//    'unflag_long' => 'Remove',
-//    'unflag_message' => 'Application removed',
-//    'unflag_denied_text' => '',
-//    'link_type' => 'toggle',
-//    'weight' => 0,
-//    'show_in_links' =>
-//    
-//    array(
-//      'full' => 'full',
-//      'teaser' => 'teaser',
-//      'rss' => 0,
-//      'search_index' => 0,
-//      'search_result' => 0,
-//      'token' => 0,
-//    ),
-//    'show_as_field' => 1,
-//    'show_on_form' => 0,
-//    'access_author' => '',
-//    'show_contextual_link' => 0,
-//    'i18n' => 0,
-//    'api_version' => 3,
-//  );
-//  return $flags;
-//}
+function flag_app_flag_default_flags() {
+  $flags = array();
+// Exported flag: "Flag application".
+  $flags['flag_application'] = array(
+    'entity_type' => 'node',
+    'title' => 'Flag application',
+    'global' => '0',
+    'types' =>
+    array(
+    ),
+    'flag_short' => 'Apply',
+    'flag_long' => 'Apply for this lesson',
+    'flag_message' => 'Thank you !',
+    'unflag_short' => 'Unflag this item',
+    'unflag_long' => 'Remove',
+    'unflag_message' => 'Application removed',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'weight' => 0,
+    'show_in_links' =>
+    
+    array(
+      'full' => 'full',
+      'teaser' => 'teaser',
+      'rss' => 0,
+      'search_index' => 0,
+      'search_result' => 0,
+      'token' => 0,
+    ),
+    'show_as_field' => 1,
+    'show_on_form' => 0,
+    'access_author' => '',
+    'show_contextual_link' => 0,
+    'i18n' => 0,
+    'api_version' => 3,
+  );
+  return $flags;
+}
